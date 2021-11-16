@@ -7,12 +7,18 @@
       <div class="flex space-x-2">
         <input
           type="text"
-          placeholder="Search"
+          placeholder="ex) http://tinyurl.com/m6jhybxx"
           class="w-full input input-primary input-bordered label-text"
           v-model="input_data"
         />
         <button @click="check_URL()" class="btn btn-primary">go</button>
       </div>
+      <div class="navbar text-neutral-content">
+        <div class="flex-1 px-2 mx-2" v-text="return_value">
+          <span class="text-lg font-bold"> daisyUI </span>
+        </div>
+      </div>
+      <img :src="imageLink" alt="" />
     </div>
   </div>
 </template>
@@ -20,7 +26,6 @@
 <script>
 import Vue from "vue";
 import fullurl from "../assets/axios";
-
 /* eslint-disable */
 const pattern =
   /(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
@@ -29,18 +34,11 @@ export default Vue.extend({
   name: "App",
   data() {
     return {
-      valid: "",
+      valid: false,
       input_data: "",
+      return_value: "",
+      imageLink: "",
     };
-  },
-  created() {
-    try {
-      fullurl("https://tinyurl.com/m6jhybxx").then((val) => {
-        console.log(val.data);
-      });
-    } catch (error) {
-      console.log(error);
-    }
   },
   methods: {
     check_URL() {
@@ -48,13 +46,20 @@ export default Vue.extend({
         ? (this.valid = true)
         : (this.valid = false);
 
-      if (this.valid == true) {
+      if (this.input_data !== "") {
         try {
+          if (this.valid === true) {
+            this.input_data = this.input_data.split("://")[1];
+          }
           fullurl(this.input_data).then((val) => {
-            console.log(val.data);
+            val.data != ""
+              ? (this.return_value = val.data)
+              : alert("URL 정보 확인에 실패 했습니다.");
           });
+          this.imageLink=`http://serve.oozoo.site:8080/img/?url=${this.input_data}`
         } catch (error) {
-          console.log(error);
+          // console.log(error);
+          alert("내부적인 오류가 발생했어요.");
         }
       } else if (this.valid == false) {
         alert("잘못된 URL입니다.");
