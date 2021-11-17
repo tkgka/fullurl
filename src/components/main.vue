@@ -56,7 +56,7 @@ export default Vue.extend({
               ? (this.return_value = val.data)
               : alert("URL 정보 확인에 실패 했습니다.");
           });
-          this.imageLink=`http://serve.oozoo.site:8080/img/?url=${this.input_data}`
+          this.imageLink=`https://serve.oozoo.site/img/?url=${this.input_data}`
         } catch (error) {
           // console.log(error);
           alert("내부적인 오류가 발생했어요.");
