@@ -1,8 +1,9 @@
 console.log(`NODE_ENV: ${process.env.NODE_ENV}`);
 
 import axios from "axios";
+import url from "./server_url";
 const client = axios.create({
-  baseURL: "https://serve.oozoo.site/",
+  baseURL: url.url,
 });
 /* eslint-disable */
 export default function getTrack(TINYURL: string) {
