@@ -44,7 +44,7 @@ export default Vue.extend({
   methods: {
     toggleimg: function () {
       var myImage = new Image();
-      myImage.src = `${url.url}/img/?url=${this.input_data}`;
+      myImage.src = `${url.url}img/?url=${this.input_data}`;
       myImage.onload = () => {
         this.imageLink = myImage.src;
       };
