@@ -42,9 +42,9 @@ export default Vue.extend({
     };
   },
   methods: {
-    toggleimg: function () {
+    toggleimg: function (tinyurl) {
       var myImage = new Image();
-      myImage.src = `${url.url}img/?url=${this.input_data}`;
+      myImage.src = `${url.url}img/?url=${tinyurl}`;
       myImage.onload = () => {
         this.imageLink = myImage.src;
       };
@@ -64,8 +64,8 @@ export default Vue.extend({
             var tinyurl = this.input_data;
           }
           fullurl(tinyurl).then((val) => {
-            val.data != ""
-              ? ((this.return_value = val.data), this.toggleimg())
+            val.data != "" && val.data != "error"
+              ? ((this.return_value = val.data), this.toggleimg(`https://${tinyurl}`))
               : alert("URL 정보 확인에 실패 했습니다.");
           });
         } catch (error) {
