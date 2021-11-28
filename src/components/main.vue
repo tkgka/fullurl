@@ -15,7 +15,7 @@
       </div>
       <div class="navbar text-neutral-content">
         <div class="label-text mb-5 text-2xl font-bold" v-text="return_value">
-          <span class="text-lg font-bold"> daisyUI </span>
+          <span class="text-lg font-bold"> </span>
         </div>
       </div>
       <img :src="imageLink" alt="" />
@@ -23,13 +23,11 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import Vue from "vue";
 import fullurl from "../assets/axios";
 import url from "../assets/server_url";
-/* eslint-disable */
-const pattern =
-  /(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+import reg from "../assets/reg_pattern";
 
 export default Vue.extend({
   name: "App",
@@ -39,9 +37,27 @@ export default Vue.extend({
       input_data: "",
       return_value: "",
       imageLink: "",
+      tinyurl: "",
     };
   },
   methods: {
+    async verify_URL(input_data) {
+      input_data.match(reg.pattern)
+        ? (this.valid = true)
+        : (this.valid = false);
+      try {
+        if (this.valid === true) {
+          input_data = input_data.split("://")[1];
+        }
+        if (input_data === this.tinyurl) {
+          return null;
+        } else {
+          return input_data;
+        }
+      } catch (error) {
+        alert("내부적인 오류가 발생했어요.");
+      }
+    },
     toggleimg: function (tinyurl) {
       var myImage = new Image();
       myImage.src = `${url.url}img/?url=${tinyurl}`;
@@ -52,29 +68,21 @@ export default Vue.extend({
         "https://miro.medium.com/max/882/1*9EBHIOzhE1XfMYoKz1JcsQ.gif";
     },
     check_URL() {
-      this.input_data.match(pattern)
-        ? (this.valid = true)
-        : (this.valid = false);
-
-      if (this.input_data !== "") {
-        try {
-          if (this.valid === true) {
-            var tinyurl = this.input_data.split("://")[1];
-          } else if (this.valid === false) {
-            var tinyurl = this.input_data;
-          }
-          fullurl(tinyurl).then((val) => {
-            val.data != "" && val.data != "error"
-              ? ((this.return_value = val.data), this.toggleimg(`https://${tinyurl}`))
+      this.verify_URL(this.input_data).then((val) => {
+        if (val !== null) {
+          this.tinyurl = val;
+        } else if (val === null) {
+          return;
+        }
+        if (this.input_data !== "") {
+          fullurl(this.tinyurl).then((val) => {
+            val.data !== "" && val.data !== "error"
+              ? ((this.return_value = String(val.data)),
+                this.toggleimg(`https://${this.tinyurl}`))
               : alert("URL 정보 확인에 실패 했습니다.");
           });
-        } catch (error) {
-          // console.log(error);
-          alert("내부적인 오류가 발생했어요.");
         }
-      } else if (this.valid == false) {
-        alert("잘못된 URL입니다.");
-      }
+      });
     },
   },
 });
