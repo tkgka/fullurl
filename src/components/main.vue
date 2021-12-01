@@ -47,7 +47,10 @@ export default Vue.extend({
   methods: {
     myFilter: function () {
       this.image_show = !this.image_show;
-      this.tinyurl != "" ? this.toggleimg(`https://${this.tinyurl}`) : null;
+      this.tinyurl !== "" &&
+      this.imageLink !== `${url.url}img/?url=${this.tinyurl}`
+        ? this.toggleimg(`https://${this.tinyurl}`)
+        : null;
     },
     async verify_URL(input_data) {
       input_data.match(reg.pattern)
