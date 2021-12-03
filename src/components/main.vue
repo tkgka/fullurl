@@ -1,27 +1,50 @@
 <template>
   <div>
     <div class="form-control">
-      <label class="label">
-        <th @click="myFilter()" class="initial">
-          <span class="label-text">image_{{ image_show }}</span>
-        </th>
-        <span class="label-text">URL을 입력하세요</span>
-      </label>
-      <div class="flex space-x-2">
-        <input
-          type="text"
-          placeholder="ex) http://tinyurl.com/m6jhybxx"
-          class="w-full input input-primary input-bordered label-text"
-          v-model="input_data"
-        />
-        <button @click="check_URL()" class="btn btn-primary">go</button>
-      </div>
-      <div class="navbar text-neutral-content">
-        <div class="label-text mb-5 text-2xl font-bold" v-text="return_value">
-          <span class="text-lg font-bold"> </span>
+      <div id="main">
+        <label class="label">
+          <th @click="myFilter()" class="initial">
+            <span class="label-text">image_{{ image_show }}</span>
+          </th>
+          <span class="label-text">URL을 입력하세요</span>
+        </label>
+        <div class="flex space-x-2">
+          <input
+            type="text"
+            placeholder="ex) http://tinyurl.com/m6jhybxx"
+            class="w-full input input-primary input-bordered label-text"
+            v-model="input_data"
+          />
+          <button @click="check_URL()" class="btn btn-primary">go</button>
+        </div>
+        <div class="navbar text-neutral-content">
+          <div class="label-text mb-5 text-2xl font-bold" v-text="return_value">
+            <span class="text-lg font-bold"> </span>
+          </div>
         </div>
       </div>
-      <img :src="imageLink" alt="" v-if="image_show" />
+
+      <div
+        class="flex items-center w-full px-4 py-10 bg-cover card bg-base-200"
+        style="background-color: #777777"
+      >
+        <div class="card glass lg:card-side text-neutral-content">
+          <figure class="p-6">
+            <img :src="imageLink" alt="" v-if="image_show" />
+          </figure>
+          <div class="max-w-md card-body">
+            <h2 class="card-title">Glass</h2>
+            <p>
+              Rerum reiciendis beatae tenetur excepturi aut pariatur est eos.
+              Sit sit necessitatibus veritatis sed molestiae voluptates incidunt
+              iure sapiente.
+            </p>
+            <div class="card-actions">
+              <button class="btn glass rounded-full">Get Started</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -33,9 +56,10 @@ import url from "../assets/server_url";
 import reg from "../assets/reg_pattern";
 
 export default Vue.extend({
-  name: "App",
+  name: "Main",
   data() {
     return {
+      gradient: [] as string[],
       valid: false,
       input_data: "",
       return_value: "",
@@ -44,7 +68,17 @@ export default Vue.extend({
       image_show: false,
     };
   },
+  created() {
+    const defaultColorsNumber = 2;
+
+    for (let i = 0; i < defaultColorsNumber; i += 1) {
+      this.gradient.push(this.randomHexColor());
+    }
+  },
   methods: {
+    randomHexColor(): string {
+      return `#${(Math.random() * 0xfffff * 1000000).toString(16).slice(0, 6)}`;
+    },
     myFilter: function () {
       this.image_show = !this.image_show;
       this.tinyurl !== "" &&
@@ -100,3 +134,9 @@ export default Vue.extend({
   },
 });
 </script>
+
+<style scoped>
+#main {
+  margin-top: 5%;
+}
+</style>

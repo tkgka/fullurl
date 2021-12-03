@@ -1,19 +1,44 @@
 <template>
-  <div id="app">
-    <Main />
+  <div id="bg"
+    :style="{
+      'background-image': `linear-gradient(to right, ${gradient
+        .map((color) => `${color}66`)
+        .join(',')})`,
+    }"
+  >
+    <div id="app">
+      <Main />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Vue } from "vue-property-decorator";
 import Main from "./components/main.vue";
 
-@Component({
+export default Vue.extend({
+  name: "App",
   components: {
     Main,
   },
-})
-export default class App extends Vue {}
+  data() {
+    return {
+      gradient: [] as string[],
+    };
+  },
+  created() {
+    const defaultColorsNumber = 2;
+
+    for (let i = 0; i < defaultColorsNumber; i += 1) {
+      this.gradient.push(this.randomHexColor());
+    }
+  },
+  methods: {
+    randomHexColor(): string {
+      return `#${(Math.random() * 0xfffff * 1000000).toString(16).slice(0, 6)}`;
+    },
+  },
+});
 </script>
 
 <style>
@@ -24,5 +49,10 @@ export default class App extends Vue {}
   text-align: center;
   color: #2c3e50;
   margin: 15%;
+  margin-top: 0%;
+}
+#bg {
+  width: 100vw;
+  height: 100vh;
 }
 </style>
