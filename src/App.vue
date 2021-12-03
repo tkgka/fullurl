@@ -48,7 +48,7 @@ export default Vue.extend({
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin: 15%;
+  margin: 7%;
   margin-top: 0%;
 }
 #bg {
