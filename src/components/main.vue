@@ -17,32 +17,23 @@
           />
           <button @click="check_URL()" class="btn btn-primary">go</button>
         </div>
-        <div class="navbar text-neutral-content">
-          <div class="label-text mb-5 text-2xl font-bold" v-text="return_value">
-            <span class="text-lg font-bold"> </span>
-          </div>
-        </div>
+            
       </div>
+    </div>
 
-      <div
-        class="flex items-center w-full px-4 py-10 bg-cover card bg-base-200"
-        style="background-color: #777777"
-      >
-        <div class="card glass lg:card-side text-neutral-content">
-          <figure class="p-6">
-            <img :src="imageLink" alt="" v-if="image_show" />
-          </figure>
-          <div class="max-w-md card-body">
-            <h2 class="card-title">Glass</h2>
-            <p>
-              Rerum reiciendis beatae tenetur excepturi aut pariatur est eos.
-              Sit sit necessitatibus veritatis sed molestiae voluptates incidunt
-              iure sapiente.
-            </p>
-            <div class="card-actions">
-              <button class="btn glass rounded-full">Get Started</button>
+    <div class="hero bg-base-200">
+      <div class="flex-col hero-content lg:flex-row-reverse">
+        <img :src="imageLink" alt="" v-if="image_show" />
+        <div>
+          <div class="navbar text-neutral-content">
+            <div
+              class="label-text mb-5 text-2xl font-bold"
+              v-text="return_value"
+            >
+              <span class="text-lg font-bold"> </span>
             </div>
           </div>
+          <button class="btn btn-primary">Get Started</button>
         </div>
       </div>
     </div>

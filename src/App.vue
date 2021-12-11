@@ -1,14 +1,6 @@
 <template>
-  <div id="bg"
-    :style="{
-      'background-image': `linear-gradient(to right, ${gradient
-        .map((color) => `${color}66`)
-        .join(',')})`,
-    }"
-  >
-    <div id="app">
-      <Main />
-    </div>
+  <div id="app">
+    <Main />
   </div>
 </template>
 
@@ -20,23 +12,6 @@ export default Vue.extend({
   name: "App",
   components: {
     Main,
-  },
-  data() {
-    return {
-      gradient: [] as string[],
-    };
-  },
-  created() {
-    const defaultColorsNumber = 2;
-
-    for (let i = 0; i < defaultColorsNumber; i += 1) {
-      this.gradient.push(this.randomHexColor());
-    }
-  },
-  methods: {
-    randomHexColor(): string {
-      return `#${(Math.random() * 0xfffff * 1000000).toString(16).slice(0, 6)}`;
-    },
   },
 });
 </script>
@@ -50,9 +25,5 @@ export default Vue.extend({
   color: #2c3e50;
   margin: 7%;
   margin-top: 0%;
-}
-#bg {
-  width: 100vw;
-  height: 100vh;
 }
 </style>
