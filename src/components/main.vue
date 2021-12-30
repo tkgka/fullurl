@@ -17,7 +17,6 @@
           />
           <button @click="check_URL()" class="btn btn-primary">go</button>
         </div>
-            
       </div>
     </div>
 
