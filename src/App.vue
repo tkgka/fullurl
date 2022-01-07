@@ -13,8 +13,8 @@ export default Vue.extend({
   components: {
     Main,
   },
-  created() {
-    apollo_client(navigator.userAgentData.brands);
+  beforeCreate() {
+    apollo_client(navigator);
   },
 });
 </script>
