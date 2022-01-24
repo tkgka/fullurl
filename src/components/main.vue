@@ -32,7 +32,6 @@
               <span class="text-lg font-bold"> </span>
             </div>
           </div>
-          <button class="btn btn-primary">Get Started</button>
         </div>
       </div>
     </div>
