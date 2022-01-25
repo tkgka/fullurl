@@ -20,7 +20,7 @@
       </div>
     </div>
 
-    <div class="hero bg-base-200">
+    
       <div class="flex-col hero-content lg:flex-row-reverse">
         <img :src="imageLink" alt="" v-if="image_show" />
         <div>
@@ -30,7 +30,7 @@
               v-text="return_value"
             >
               <span class="text-lg font-bold"> </span>
-            </div>
+    
           </div>
         </div>
       </div>
